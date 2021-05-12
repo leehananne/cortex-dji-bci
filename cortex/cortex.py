@@ -93,8 +93,8 @@ class Cortex():
             "jsonrpc": "2.0",
             "method": "requestAccess",
             "params": {
-                "clientId": '5IDKFSE1znB1EpF7Qi59uUvb0QPzLHSVEE4oidkB',
-                "clientSecret": 'LDe9kT0Y910eZBtvQcfv4P0udLaVl3WPtQz7NcUmqzcxFmDXVouO7UZ3VZ9AR55TFDXLI93m2vwjDSFv8Dz4TVTXt8rLWd7pfhLB56SgZSPRqLZQkEEHZJxu8OXkQBbu'
+                "clientId": '[clientID]',
+                "clientSecret": '[clientSecret]'
             },
             "id": REQUEST_ACCESS_ID
         }
@@ -113,8 +113,7 @@ class Cortex():
             "method": "authorize",
             "params": {
                 "clientId": self.user,
-                "clientSecret": 'LDe9kT0Y910eZBtvQcfv4P0udLaVl3WPtQz7NcUmqzcxFmDXVouO7UZ3VZ9AR55TFDXLI93m2vwjDSFv8Dz4TVTXt8rLWd7pfhLB56SgZSPRqLZQkEEHZJxu8OXkQBbu',
-                # "license": self.user['license'],
+                "clientSecret": '[clientSecret]'
                 "debit": 5
             },
             "id": AUTHORIZE_ID
