@@ -25,7 +25,7 @@ class ConnectionType(enum.Enum):
 
 class RobotLiveview(object):
     WIFI_DIRECT_IP = '192.168.2.1'
-    WIFI_NETWORKING_IP = '192.168.137.117'
+    WIFI_NETWORKING_IP = '[ip_address]'
     USB_DIRECT_IP = '192.168.42.2'
 
     def __init__(self, connection_type):
@@ -44,7 +44,7 @@ class RobotLiveview(object):
         self.is_shutdown = True
 
     def open(self):
-        robot_ip = '192.168.137.117'
+        robot_ip = '[ip_address]'
         if robot_ip:
             self.connection.update_robot_ip(robot_ip)
         else:
