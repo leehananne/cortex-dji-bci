@@ -24,7 +24,7 @@ from PIL import Image as PImage
 import cv2
 
 # In direct connection mode, the default IP address of the robot is 192.168.2.1 and the control command port is port 40923.
-host = "192.168.137.117"
+host = "[ip_address]"
 port = 40923
 
 address = (host, int(port))
@@ -121,8 +121,8 @@ class Cortex():
             "jsonrpc": "2.0",
             "method": "requestAccess",
             "params": {
-                "clientId": '5IDKFSE1znB1EpF7Qi59uUvb0QPzLHSVEE4oidkB',
-                "clientSecret": 'LDe9kT0Y910eZBtvQcfv4P0udLaVl3WPtQz7NcUmqzcxFmDXVouO7UZ3VZ9AR55TFDXLI93m2vwjDSFv8Dz4TVTXt8rLWd7pfhLB56SgZSPRqLZQkEEHZJxu8OXkQBbu'
+                "clientId": '[clientId]',
+                "clientSecret": '[clientSecret]'
             },
             "id": REQUEST_ACCESS_ID
         }
@@ -141,8 +141,7 @@ class Cortex():
             "method": "authorize",
             "params": {
                 "clientId": self.user,
-                "clientSecret": 'LDe9kT0Y910eZBtvQcfv4P0udLaVl3WPtQz7NcUmqzcxFmDXVouO7UZ3VZ9AR55TFDXLI93m2vwjDSFv8Dz4TVTXt8rLWd7pfhLB56SgZSPRqLZQkEEHZJxu8OXkQBbu',
-                # "license": self.user['license'],
+                "clientSecret": '[clientSecret]'
                 "debit": 5
             },
             "id": AUTHORIZE_ID
@@ -547,14 +546,6 @@ class Cortex():
 
 
 # ===============================================================================================================
-
-# ====================================================================
-#   cursor
-#
-#   cortex is a class --> i need an object of this class,
-#                         important to be able to access new_data
-#
-# ====================================================================
 
 def dji_robomaster_ep():
     print("connecting ---------------------------------------------------------------")
