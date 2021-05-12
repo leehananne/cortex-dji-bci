@@ -11,7 +11,7 @@ Have the RoboMaster SDK installed, following [these instructions](https://roboma
 ### Programming Language
 Ensure that the downloaded python.exe file is for 64-bit installation and the Python version is between **3.6.6 and 3.8.9**. Otherwise, you cannot use the Python SDK properly due to compatibility issues.
 
-You can download Python 3.8.8 from [Python](https://www.python.org/downloads/release/python-388/). 
+The code here was written in Python 3.8.8, which you can download from [Python](https://www.python.org/downloads/release/python-388/). 
 
 The code was written on a Windows 10 64-bit machine.
 
