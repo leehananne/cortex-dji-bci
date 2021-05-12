@@ -375,7 +375,7 @@ class Cortex():
                     elif command == "pull":
                         msg = "chassis move x -0.1;"
                     elif command == "neutral":
-                        msg = "chassis move  z 45;"
+                        msg = "chassis move  z 0;"
 
                     # Send control commands to the robot.
                     s.send(msg.encode('utf-8'))
