@@ -2,35 +2,7 @@
 #   global variables
 # ====================================================================
 
-robot = False
-msg = " "
 command = " "
-# ====================================================================
-#   connection for DJI RoboMaster EP
-# ====================================================================
-
-import socket
-import sys
-import time
-from robomaster import robot
-from robomaster import camera
-import threading
-import numpy as np
-import libh264decoder
-import signal
-import enum
-import queue
-from PIL import Image as PImage
-import cv2
-
-# In direct connection mode, the default IP address of the robot is 192.168.2.1 and the control command port is port 40923.
-host = "192.168.137.117"
-port = 40923
-
-address = (host, int(port))
-
-# Establish a TCP connection with the control command port of the robot.
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # ====================================================================
 #   set up of API flow
@@ -121,8 +93,8 @@ class Cortex():
             "jsonrpc": "2.0",
             "method": "requestAccess",
             "params": {
-                "clientId": '5IDKFSE1znB1EpF7Qi59uUvb0QPzLHSVEE4oidkB',
-                "clientSecret": 'LDe9kT0Y910eZBtvQcfv4P0udLaVl3WPtQz7NcUmqzcxFmDXVouO7UZ3VZ9AR55TFDXLI93m2vwjDSFv8Dz4TVTXt8rLWd7pfhLB56SgZSPRqLZQkEEHZJxu8OXkQBbu'
+                "clientId": '[clientId]',
+                "clientSecret": '[clientSecret]'
             },
             "id": REQUEST_ACCESS_ID
         }
@@ -141,8 +113,7 @@ class Cortex():
             "method": "authorize",
             "params": {
                 "clientId": self.user,
-                "clientSecret": 'LDe9kT0Y910eZBtvQcfv4P0udLaVl3WPtQz7NcUmqzcxFmDXVouO7UZ3VZ9AR55TFDXLI93m2vwjDSFv8Dz4TVTXt8rLWd7pfhLB56SgZSPRqLZQkEEHZJxu8OXkQBbu',
-                # "license": self.user['license'],
+                "clientSecret": '[clientSecret]'
                 "debit": 5
             },
             "id": AUTHORIZE_ID
