@@ -356,7 +356,7 @@ class Cortex():
                         elif command == "pull" and y > 0:
                             pyautogui.move(0, 4)
                         elif command == "neutral":
-                            pyautogui.move(-4, 0)
+                            pyautogui.move(0, 0)
 
     # ====================================================================
     #   records and markers
