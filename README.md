@@ -12,6 +12,8 @@ The latest version of Python (as of March 2021), 3.9.2 was used to write and tes
 
 There are also prerequisites that need to be met before the Cortex API can be used, such as an [EmotivID, License and Cortex App](https://emotiv.gitbook.io/cortex-api/#prerequisites).
 
+The attached code prints out the name of the mental command and the power of it when a subscription request is sent to Cortex. Other data such as the sessionId and time are not printed, and will need to be extracted from the data sample object if desired.
+
 ### DJI RoboMaster only
 
 The Python.exe file needs to be for 64-bit installation and the version must be **between 3.6.6 and 3.8.9**. Otherwise, the DJI RoboMaster Python SDK cannot be properly used due to compatibility issues. 
