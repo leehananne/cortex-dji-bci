@@ -1,28 +1,40 @@
 # cortex-dji-bci
 
 ## Description
-Control and command a DJI RoboMaster EP using Mental Commands fetched from EMOTIV's Cortex API.
+Control and command a DJI RoboMaster EP using Mental Commands fetched from EMOTIV's Cortex API. The description of the `cortex`, `dji-robomaster` and `cortex-dji` folders can be found by clicking on them. 
 
 ## Requirements
-cortex ; python 3.9 is fine (direct to the python pages)
-dji sdk ; up till 3.8.9
+### Cortex API only
 
-emotiv app
-robomaster.exe 
+As the EMOTIV Cortex API is a WebSocket server that uses the JSON-RPC protocol, any version of Python that supports `websocket-client` can be used. The description for it can be found [here](https://pypi.org/project/websocket-client/). 
 
-what packages did i install again,,,,, robomaster, websocket-client, signals..? (check again)
+The latest version of Python (as of March 2021), 3.9.2 was used to write and test the code in the `cortex` folder. Python 3.9.2 can be downloaded [here](https://www.python.org/downloads/release/python-392/).
+
+There are also prerequisites that need to be met before the Cortex API can be used, such as an [EmotivID, License and Cortex App](https://emotiv.gitbook.io/cortex-api/#prerequisites).
+
+### DJI RoboMaster only
+
+The Python.exe file needs to be for 64-bit installation and the version must be **between 3.6.6 and 3.8.9**. Otherwise, the DJI RoboMaster Python SDK cannot be properly used due to compatibility issues. 
+
+Instructions to set up the necessary programming environment can be found at [DJI's RoboMaster Development Guide](https://robomaster-dev.readthedocs.io/en/latest/code_env_setup.html). 
+
+Python 3.8.8 was used to write and test the code in the `dji_robomaster` folder. This version of Python can be downloaded [here](https://www.python.org/downloads/release/python-388/). 
+
+The RoboMaster application also needs to be installed to allow the DJI RoboMaster EP to connect via Wi-Fi router mode using a QR code that will be generated in the application. It can be downloaded [here](https://www.dji.com/sg/downloads/softwares/robomaster-win).
+
+### Cortex and DJI RoboMaster
+
+To cater to the DJI RoboMaster Plaintext SDK, Python 3.8.8 was used to write and test the code. This version of Python can be downloaded [here](https://www.python.org/downloads/release/python-388/). 
+
+The requirements for both the Cortex API and DJI RoboMaster mentioned above must be met.
 
 ## Usage
-- look for [clientId], [clientSecret], [ip_address] in the code and replace accordingly
 
-### cortex
+To utilise the code, the following values need to be found and replaced accordingly. 
 
-emotiv bci api
+For the Cortex API, it will be:
+- [clientId]
+- [clientSecret]
 
-### dji_robomaster
-
-code to connect to plaintext sdk and get live feed
-
-### cortex_dji
-
-control and command ep using commands from emotiv + the different files in it weeeew
+For the DJI RoboMaster, it will be:
+- [ip_address]
