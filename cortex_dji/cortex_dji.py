@@ -367,7 +367,7 @@ class Cortex():
                     command = result_dic['com'][0]
                     print(command)
                     if command == "left":
-                        msg = "chassis move z -90;"
+                        msg = "chassis move x -0.1;"
                     elif command == "right":
                         msg = "chassis move z 90;"
                     elif command == "push":
@@ -560,15 +560,14 @@ def dji_robomaster_ep():
     while dji_choice != 3:
         print("enter selection: \n==========================================================")
         print("\n   1: set wheel speed")
-        print("\n   2: enable video feed")
-        print("\n   3: done")
+        print("\n   2: done")
         print("\n==========================================================\n")
-        dji_choice = input("choice (1-3): ")
+        dji_choice = input("choice (1-2): ")
         dji_choice = int(dji_choice)
 
-        while dji_choice < 1 or dji_choice > 6:
-            print("key in a number from 1-3\n")
-            dji_choice = input("choice (1-3): ")
+        while dji_choice < 1 or dji_choice > 2:
+            print("key in a number from 1-2\n")
+            dji_choice = input("choice (1-2): ")
             dji_choice = int(dji_choice)
 
         if dji_choice == 1:
@@ -589,19 +588,7 @@ def dji_robomaster_ep():
 
             if recv == "ok":
                 print("wheel speed : %s ---------------------------------------------------------" % (dji_wheel_speed))
-
-        elif dji_choice == 2:
-            print("enabling video feed -----------------------------------------------------")
-            msg = "stream on;"
-
-            s.send(msg.encode('utf-8'))
-            buf = s.recv(1024)
-            recv = buf.decode(('utf-8'))
-
-            if recv == "ok":
-                print("video feed enabled ------------------------------------------------------")
-
-
+        
     print("ready -------------------------------------------------------------------")
 
 
