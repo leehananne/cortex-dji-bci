@@ -1,2 +1,2 @@
 start python rm_livestream.py
-start python cortex-_dji.py
+start python cortex_dji_ls.py
