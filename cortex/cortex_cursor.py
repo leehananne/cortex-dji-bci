@@ -113,7 +113,7 @@ class Cortex():
             "method": "authorize",
             "params": {
                 "clientId": self.user,
-                "clientSecret": '[clientSecret]'
+                "clientSecret": '[clientSecret]',
                 "debit": 5
             },
             "id": AUTHORIZE_ID
