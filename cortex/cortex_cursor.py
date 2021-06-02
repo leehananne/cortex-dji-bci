@@ -93,8 +93,8 @@ class Cortex():
             "jsonrpc": "2.0",
             "method": "requestAccess",
             "params": {
-                "clientId": '[clientId]',
-                "clientSecret": '[clientSecret]'
+                "clientId": '5IDKFSE1znB1EpF7Qi59uUvb0QPzLHSVEE4oidkB',
+                "clientSecret": 'LDe9kT0Y910eZBtvQcfv4P0udLaVl3WPtQz7NcUmqzcxFmDXVouO7UZ3VZ9AR55TFDXLI93m2vwjDSFv8Dz4TVTXt8rLWd7pfhLB56SgZSPRqLZQkEEHZJxu8OXkQBbu'
             },
             "id": REQUEST_ACCESS_ID
         }
@@ -113,7 +113,7 @@ class Cortex():
             "method": "authorize",
             "params": {
                 "clientId": self.user,
-                "clientSecret": '[clientSecret]',
+                "clientSecret": 'LDe9kT0Y910eZBtvQcfv4P0udLaVl3WPtQz7NcUmqzcxFmDXVouO7UZ3VZ9AR55TFDXLI93m2vwjDSFv8Dz4TVTXt8rLWd7pfhLB56SgZSPRqLZQkEEHZJxu8OXkQBbu',
                 "debit": 5
             },
             "id": AUTHORIZE_ID
@@ -527,7 +527,7 @@ def main():
         print("\n   1: get cortex info")
         print("\n   2: query profiles")
         print("\n   3: set up profiles (create, load, unload, save, rename, delete)")
-        print("\n   4: subscribe to mental commands / control cusor")
+        print("\n   4: subscribe to mental commands / control cursor")
         print("\n   5: records (create, stop or export)")
         print("\n   6: inject marker request")
         print("\n   7: disconnect headset")
@@ -584,7 +584,6 @@ def main():
             current_profile = cortex.current_profile_name
             print("\n   current profile: ", current_profile)
             current_ans = input("\nis this the desired profile to use? (y/n): ")
-            print("\n")
 
             if current_ans == "n":
                 cortex.setup_profile(current_profile, "unload")
@@ -592,13 +591,8 @@ def main():
                 current_profile = input("enter name of desired profile from above list: ")
                 cortex.setup_profile(current_profile, "load")
 
-            cursor_choice = input("\ndo you want to start cursor control? (y/n): ")
+            cursor_choice = input("do you want to start cursor control? (y/n): ")
             cursor_choice = cursor_choice.upper()
-
-            while cursor_choice != 'Y' or cursor_choice != 'N':
-                print("key in a number from 1-6\n")
-                profile_choice = input("choice (1-6): ")
-                profile_choice = int(profile_choice)
 
             if cursor_choice == 'Y':
                 cortex.sub_request("com", True)
