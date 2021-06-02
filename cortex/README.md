@@ -36,6 +36,8 @@ It outputs a Command Line Interface displaying each step of the process. Choosin
 
 Built on `cortex.py`, controls your on screen cursor using the PyAutoGUI module.
 
+## Demo
+https://user-images.githubusercontent.com/57092539/120451243-d2f14b80-c3c3-11eb-8f64-0e6fd64b79fa.mp4
 
 ## Overview of Cortex API Flow
 ![alt text](https://gblobscdn.gitbook.com/assets%2F-LVaLrV9hH1eJbn-6OTd%2F-M8QqtwkSmhYUMPOQJgh%2F-M8R5tEmDnp-tghr3nhZ%2Fcortex-starting.jpg?alt=media&token=de2d5a6a-7c78-4eef-9888-d11a298cd61c)
