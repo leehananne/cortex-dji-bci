@@ -32,6 +32,7 @@ address = (host, int(port))
 # Establish a TCP connection with the control command port of the robot.
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+
 # ====================================================================
 #   set up of API flow
 # ====================================================================
@@ -141,7 +142,7 @@ class Cortex():
             "method": "authorize",
             "params": {
                 "clientId": self.user,
-                "clientSecret": '[clientSecret]'
+                "clientSecret": '[clientSecret]',
                 "debit": 5
             },
             "id": AUTHORIZE_ID
@@ -335,7 +336,14 @@ class Cortex():
     #   cancelled when the session is closed
     # ====================================================================
 
-    def sub_request(self, stream, dji, cursor):
+    def sub_request(self, stream):
+        print("connecting ---------------------------------------------------------------")
+        s.connect(address)
+        print("connected ----------------------------------------------------------------")
+
+        msg = "command;"
+        s.send(msg.encode('utf-8'))
+
         print('\nsubscribe request -------------------------------------------------------\n')
         sub_request_json = {
             "jsonrpc": "2.0",
@@ -343,7 +351,7 @@ class Cortex():
             "params": {
                 "cortexToken": self.auth,
                 "session": self.session_id,
-                "streams": ["com"]  # ----------------------------------------------> mental command stream
+                "streams": [stream]  # ----------------------------------------------> mental command stream
             },
             "id": SUB_REQUEST_ID
         }
@@ -357,25 +365,68 @@ class Cortex():
         else:
             # result = self.ws.recv
             print("commands ----------------------------------------------------------------\n")
+
             while True:
                 self.new_data = self.ws.recv()
-                # print(self.new_data)
                 result = self.new_data
                 result_dic = json.loads(result)
 
+                # mental commands ---------------------------------------------------------------
                 if "com" in result_dic:
                     command = result_dic['com'][0]
                     print(command)
+
                     if command == "left":
-                        msg = "chassis move x -0.1;"
+                        msg = "chassis move y -0.1;"
                     elif command == "right":
-                        msg = "chassis move z 90;"
+                        msg = "chassis move y 0.1;"
                     elif command == "push":
                         msg = "chassis move x 0.1;"
                     elif command == "pull":
                         msg = "chassis move x -0.1;"
                     elif command == "neutral":
-                        msg = "chassis move  z 0;"
+                        msg = "chassis move z 10;"
+
+                    # Send control commands to the robot.
+                    s.send(msg.encode('utf-8'))
+
+                    try:
+                        # Wait for the robot to return the execution result.
+                        buf = s.recv(1024)
+                        print(buf.decode('utf-8'))
+                    except socket.error as e:
+                        print("Error receiving :", e)
+                        sys.exit(1)
+                    if not len(buf):
+                        break
+
+                # facial expression ---------------------------------------------------------------
+                elif "fac" in result_dic:
+                    fac_exp = " "
+                    fac_exp_upper = result_dic['fac'][1]
+                    fac_exp_lower = result_dic['fac'][3]
+
+                    if fac_exp_upper != 'neutral':
+                        fac_exp = fac_exp_upper
+                    elif fac_exp_lower != 'neutral':
+                        fac_exp = fac_exp_lower
+
+                    print(fac_exp)
+
+                    if fac_exp == "smile":
+                        msg = "chassis move y -0.1;"
+
+                    elif fac_exp == "frown":
+                        msg = "chassis move x 0.1;"
+
+                    elif fac_exp == "clench":
+                        msg = "chassis move y 0.1;"
+
+                    elif fac_exp == "surprise":
+                        msg = "chassis move x -0.1;"
+
+                    elif fac_exp == "neutral" or " ":
+                        msg = "chassis move z 10;"
 
                     # Send control commands to the robot.
                     s.send(msg.encode('utf-8'))
@@ -588,8 +639,10 @@ def dji_robomaster_ep():
 
             if recv == "ok":
                 print("wheel speed : %s ---------------------------------------------------------" % (dji_wheel_speed))
-        
-    print("ready -------------------------------------------------------------------")
+
+        elif dji_choice == 2:
+            print("ready -------------------------------------------------------------------")
+
 
 
 def main():
@@ -662,7 +715,6 @@ def main():
             current_profile = cortex.current_profile_name
             print("\n   current profile: ", current_profile)
             current_ans = input("\nis this the desired profile to use? (y/n): ")
-            print("\n")
 
             if current_ans == "n":
                 cortex.setup_profile(current_profile, "unload")
@@ -670,18 +722,24 @@ def main():
                 current_profile = input("enter name of desired profile from above list: ")
                 cortex.setup_profile(current_profile, "load")
 
-            choice_cursor = input("\ndo you want to start cursor control? (y/n): ")
-            # cursor = True
-            # print("\n")
-            cortex.sub_request("com", False, True)
+            print("\nchoose stream: \n==========================================================")
+            print("\n   1: mental commands")
+            print("\n   2: facial expressions")
+            print("\n==========================================================\n")
+            stream_choice = input("choice (1-2): ")
+            stream_choice = int(stream_choice)
 
-            while choice_cursor == "y":
-                maxX, maxY = pyautogui.size()
+            while stream_choice < 1 or stream_choice > 2:
+                print("key in a number from 1-2\n")
+                stream_choice = input("choice (1-2): ")
+                stream_choice = int(stream_choice)
 
-                try:
-                    x, y = pyautogui.position()
-                except KeyboardInterrupt:
-                    print('\n')
+            if stream_choice == 1:
+                sub_stream = "com"
+            elif stream_choice == 2:
+                sub_stream = "fac"
+
+            cortex.sub_request(sub_stream)
 
         elif choice == 5:
             print("enter selection: \n==========================================================")
@@ -754,7 +812,7 @@ def main():
 
         elif choice == 8:
             dji_robomaster_ep()
-            cortex.sub_request("com", True, False)
+            cortex.sub_request(sub_stream)
 
         elif choice == 9:
             break
